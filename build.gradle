@@ -1,0 +1,13 @@
+group 'org.uulib'
+
+wrapper {
+	gradleVersion = '4.2'
+}
+
+allprojects {
+	
+	repositories {
+		mavenCentral()
+	}
+	
+}

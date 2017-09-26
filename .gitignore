@@ -2,6 +2,8 @@
 **/.project
 **/.settings/
 **/.classpath
+/bin/
+*/bin/
 
 # Gradle Cache & Build
 **/.gradle/

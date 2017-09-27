@@ -13,7 +13,7 @@ class GradleTagPlugin : Plugin<Project> {
 		val ex = project.extensions.create(GradleTagExtension.EXTENSION_NAME, GradleTagExtension::class.java, project)
 		
 		ex.tags.all { tag ->
-			project.tasks.create("tagVcsWith${tag.name}", TagVcs::class.java) { tagTask ->
+			project.tasks.create("tagVcsWith${tag.name.capitalize()}", TagVcs::class.java) { tagTask ->
 				tagTask.setTag(tag.tagProperty)
 				tagTask.setComment(tag.commentProperty)
 				tagTask.setTagger(ex.vcsProperty)

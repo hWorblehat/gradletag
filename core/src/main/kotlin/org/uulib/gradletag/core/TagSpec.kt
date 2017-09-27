@@ -6,10 +6,10 @@ import org.gradle.api.tasks.Input
 
 interface TagSpec {
 	
-	@get:Internal
+	@get:Input
 	val tagProperty : Provider<String>
 	
-	@get:Input
+	@get:Internal
 	var tag : String
 	fun setTag(tagProvider : Provider<String>)
 	

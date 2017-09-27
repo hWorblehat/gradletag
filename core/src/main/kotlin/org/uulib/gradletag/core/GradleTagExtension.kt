@@ -5,8 +5,10 @@ import org.gradle.api.provider.ProviderFactory
 import org.uulib.gradle.PropertyStateDelegate
 import javax.inject.Inject
 import org.gradle.api.Project
+import org.gradle.api.Action
+import org.gradle.api.NamedDomainObjectContainer
 
-class GradleTagExtension @Inject constructor(project : Project) {
+open class GradleTagExtension @Inject constructor(project : Project) {
 	
 	companion object {
 		val EXTENSION_NAME = "gradletag"
@@ -35,5 +37,7 @@ class GradleTagExtension @Inject constructor(project : Project) {
 	fun vcsFromRootProject() {
 		setVcs(rootProjectVcsProperty)
 	}
+	
+	fun tags(action: Action<in NamedDomainObjectContainer<NamedTagSpec>>) = action.execute(tags)
 	
 }

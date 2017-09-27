@@ -1,5 +1,6 @@
 
 plugins {
+	id 'java-gradle-plugin'
 	id 'org.jetbrains.kotlin.jvm' version '1.1.50'
 	id 'java-library'
 	id 'groovy'
@@ -7,3 +8,15 @@ plugins {
 
 apply from: 'dependencies.gradle'
 
+jar {
+	archiveName = 'gradletag-core.jar'
+}
+
+gradlePlugin {
+	plugins {
+		gradletagCore {
+			id = "org.uulib.gradletag"
+			implementationClass = 'org.uulib.gradletag.core.GradleTagPlugin'
+		}
+	}
+}

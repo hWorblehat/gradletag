@@ -1,10 +1,12 @@
-group 'org.uulib'
+group 'org.uulib.gradletag'
 
 wrapper {
 	gradleVersion = '4.2'
 }
 
 allprojects {
+	
+	group 'org.uulib.gradletag'
 	
 	repositories {
 		mavenCentral()

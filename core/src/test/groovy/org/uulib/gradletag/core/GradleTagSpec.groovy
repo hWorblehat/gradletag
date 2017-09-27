@@ -6,6 +6,8 @@ import org.junit.rules.TemporaryFolder
 
 import spock.lang.*
 
+import static org.gradle.testkit.runner.TaskOutcome.*
+
 class GradleTagSpec extends Specification {
 	
 	@Rule TemporaryFolder dummyProjectDir = new TemporaryFolder()
@@ -66,8 +68,25 @@ gradletag {
 		
 		then:
 		result.output.contains('+++Boo+++This is scary+++')
+		result.task(':tagVcsWithDummy').outcome == SUCCESS
 		
 		where:
+		gradleVersion << CompatibleGradleVersions.VERSIONS
+	}
+	
+	@Unroll
+	def "The tagging task successfully runs twice in Gradle #gradleVersion"(String gradleVersion) {
+		given: "a build already run once"
+		createRunner(gradleVersion).withArguments('tagVcsWithDummy').build()
+		
+		when: "it is run again"
+		def result = createRunner(gradleVersion).withArguments('tagVcsWithDummy', '--stacktrace').build()
+		
+		then: "it is successful"
+		result.output.contains('+++Boo+++This is scary+++')
+		result.task(':tagVcsWithDummy').outcome == SUCCESS
+		
+		where: "various versions of Gradle are used"
 		gradleVersion << CompatibleGradleVersions.VERSIONS
 	}
 	

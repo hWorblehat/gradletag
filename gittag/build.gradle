@@ -1,0 +1,18 @@
+
+plugins {
+	id 'java-gradle-plugin'
+	id 'org.jetbrains.kotlin.jvm' version '1.1.50'
+	id 'java-library'
+	id 'groovy'
+}
+
+apply from: 'dependencies.gradle'
+
+gradlePlugin {
+	plugins {
+//		gittag {
+//			id = "org.uulib.gittag"
+//			//implementationClass = 'org.uulib.gradletag.core.GradleTagPlugin'
+//		}
+	}
+}

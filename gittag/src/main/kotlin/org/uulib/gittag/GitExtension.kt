@@ -1,12 +1,10 @@
 package org.uulib.gittag
 
-import org.gradle.api.Project
-import java.io.File
-import javax.inject.Inject
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder
+import org.eclipse.jgit.lib.Repository
 import org.eclipse.jgit.lib.RepositoryBuilder
-import org.eclipse.jgit.lib.BaseRepositoryBuilder
+import org.gradle.api.Project
+import javax.inject.Inject
 
 open class GitExtension @Inject constructor(private val project: Project) {
 	
@@ -14,16 +12,16 @@ open class GitExtension @Inject constructor(private val project: Project) {
 		val EXTENSION_NAME = "git"
 	}
 	
-	private fun repository(builder: BaseRepositoryBuilder<*, *>) : GitTagger {
-		return GitTagger(Git(builder.build()))
+	fun repository(repository: Repository) : GitTagger {
+		return GitTagger(Git(repository))
 	}
 	
 	fun repository(dir: Any) : GitTagger {
-		return repository(RepositoryBuilder().setWorkTree(project.file(dir)))
+		return repository(RepositoryBuilder().setWorkTree(project.file(dir)).build())
 	}
 	
 	fun bareRepository(dir: Any) : GitTagger {
-		return repository(RepositoryBuilder().setGitDir(project.file(dir)))
+		return repository(RepositoryBuilder().setGitDir(project.file(dir)).build())
 	}
 	
 	fun repositoryFromProjectDir() : GitTagger {

@@ -4,8 +4,7 @@ wrapper {
 	gradleVersion = '4.2'
 }
 
-allprojects {
-	
+subprojects {
 	group 'org.uulib.gradletag'
 	
 	repositories {

@@ -1,0 +1,7 @@
+allprojects {
+	pluginManager.withPlugin('java') {
+		build.dependsOn.remove('check')
+	}
+}
+
+apply from: '../build.gradle'

@@ -21,7 +21,7 @@ Set<String> stages = ['alpha', 'beta', 'final']
 subprojects {
 	apply from: subprojectsGradle
 	
-	status = project.properties["${project.name}.status"] ?: 'alpha'
+	status = project.properties["${project.name}.status"] ?: null
 	
 	version = Reckoner.reckon(
 			new GitInventorySupplier(repo, {java.util.Optional.ofNullable(it.replaceAll("^${project.name}-", ''))}),

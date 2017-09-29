@@ -24,7 +24,7 @@ pluginBundle {
 	
 	plugins {
 		gittag {
-			id = gradlePlugin.plugins.gradletagCore.id
+			id = gradlePlugin.plugins.gittag.id
 			displayName = "Gradletag git plugin"
 		}
 	}

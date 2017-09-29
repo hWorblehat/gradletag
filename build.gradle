@@ -46,6 +46,12 @@ subprojects {
 			vcsUrl = 'https://github.com/hWorblehat/gradletag'
 		}
 		
-		publishPlugins.finalizedBy gradletag.tags.versionTag.tagTaskName
+		tagVcsWithVersionTag.mustRunAfter publishPlugins
+		
+		task('releasePlugins') {
+			group = "Publishing"
+			description = "Publishes Gradle plugins to the plugin portal, and tags git with the version number"
+			dependsOn 'publishPlugins', 'tagVcsWithVersionTag'
+		}
 	}
 }

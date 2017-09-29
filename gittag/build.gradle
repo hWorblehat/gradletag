@@ -10,9 +10,9 @@ apply from: 'dependencies.gradle'
 
 gradlePlugin {
 	plugins {
-//		gittag {
-//			id = "org.uulib.gittag"
-//			//implementationClass = 'org.uulib.gradletag.core.GradleTagPlugin'
-//		}
+		gittag {
+			id = "org.uulib.gittag"
+			implementationClass = 'org.uulib.gittag.GitTagPlugin'
+		}
 	}
 }

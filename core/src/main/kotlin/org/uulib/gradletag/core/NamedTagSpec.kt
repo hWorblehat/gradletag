@@ -7,6 +7,8 @@ import org.gradle.api.NamedDomainObjectFactory
 class NamedTagSpec(private val name: String, providerFactory: ProviderFactory)
 		: TagSpec by TagSpecImpl(providerFactory), Named {
 	
+	val tagTaskName = "tagVcsWith${name.capitalize()}"
+	
 	override fun getName() : String = name
 	
 }

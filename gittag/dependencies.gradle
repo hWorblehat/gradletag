@@ -5,7 +5,7 @@ dependencies {
 		"org.jetbrains.kotlin:kotlin-stdlib-jre8:1.1.+",
 		gradleApi(),
 		project(':core'),
-		'org.ajoberstar:grgit:2.0.1'
+		'org.eclipse.jgit:org.eclipse.jgit:4.8.0.201706111038-r'
 	)
 	
 	testImplementation('org.spockframework:spock-core:1.1-+') {

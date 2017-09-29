@@ -26,7 +26,7 @@ subprojects {
 	version = Reckoner.reckon(
 			new GitInventorySupplier(repo, {java.util.Optional.ofNullable(it.replaceAll("^${project.name}-", ''))}),
 			new ScopeNormalStrategy({java.util.Optional.ofNullable(project.properties["${project.name}.scope"])}),
-			new StagePreReleaseStrategy(stages, {java.util.Optional.of(project.status)})
+			new StagePreReleaseStrategy(stages, {java.util.Optional.ofNullable(project.status)})
 	)
 	
 	apply plugin: 'org.uulib.gittag'

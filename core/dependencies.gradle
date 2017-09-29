@@ -13,8 +13,4 @@ dependencies {
 		exclude module: 'groovy-all'
 	}
 	
-	testImplementation(
-		project(':testUtil')
-	)
-	
 }

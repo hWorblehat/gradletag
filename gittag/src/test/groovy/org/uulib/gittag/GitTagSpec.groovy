@@ -16,6 +16,9 @@ import static org.gradle.testkit.runner.TaskOutcome.*
 
 class GitTagSpec extends Specification {
 	
+	@Shared List<String> compatibleGradleVersions =
+			System.getProperty('org.uulib.gradletag.compatibleGradleVersions').split(',')
+	
 	@Rule TemporaryFolder projectDir = new TemporaryFolder()
 	Git git
 	
@@ -73,7 +76,7 @@ gradletag {
 		}
 		
 		where:
-		gradleVersion << System.getProperty('org.uulib.gradletag.compatibleGradleVersions').split(',')
+		gradleVersion << compatibleGradleVersions
 	}
 	
 }

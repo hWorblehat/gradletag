@@ -1,15 +1,17 @@
 package org.uulib.gradletag.core
 
+import static org.gradle.testkit.runner.TaskOutcome.*
+
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
-import org.uulib.gradletag.testutil.CompatibleGradleVersions
 
 import spock.lang.*
 
-import static org.gradle.testkit.runner.TaskOutcome.*
-
 class GradleTagSpec extends Specification {
+	
+	@Shared List<String> compatibleGradleVersions =
+			System.getProperty('org.uulib.gradletag.compatibleGradleVersions').split(',')
 	
 	@Rule TemporaryFolder dummyProjectDir = new TemporaryFolder()
 	File buildFile
@@ -59,7 +61,7 @@ gradletag {
 		result.output.contains('tagVcsWithDummy')
 		
 		where:
-		gradleVersion << CompatibleGradleVersions.VERSIONS
+		gradleVersion << compatibleGradleVersions
 	}
 	
 	@Unroll
@@ -72,7 +74,7 @@ gradletag {
 		result.task(':tagVcsWithDummy').outcome == SUCCESS
 		
 		where:
-		gradleVersion << CompatibleGradleVersions.VERSIONS
+		gradleVersion << compatibleGradleVersions
 	}
 	
 	@Unroll
@@ -88,7 +90,7 @@ gradletag {
 		result.task(':tagVcsWithDummy').outcome == SUCCESS
 		
 		where: "various versions of Gradle are used"
-		gradleVersion << CompatibleGradleVersions.VERSIONS
+		gradleVersion << compatibleGradleVersions
 	}
 	
 	private GradleRunner createRunner(String gradleVersion) {

@@ -16,8 +16,7 @@ dependencies {
 	}
 	
 	testImplementation (
-		'org.eclipse.jgit:org.eclipse.jgit:4.8.0.201706111038-r',
-		project(':testUtil')
+		'org.eclipse.jgit:org.eclipse.jgit:4.8.0.201706111038-r'
 	)
 	
 }

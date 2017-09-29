@@ -7,6 +7,7 @@ import org.ajoberstar.reckon.core.Reckoner
 import org.ajoberstar.reckon.core.git.GitInventorySupplier
 import org.ajoberstar.reckon.core.strategy.*
 import org.eclipse.jgit.lib.Repository
+import java.util.Optional
 
 group 'org.uulib.gradletag'
 
@@ -21,12 +22,12 @@ Set<String> stages = ['alpha', 'beta', 'final']
 subprojects {
 	apply from: subprojectsGradle
 	
-	status = project.properties["${project.name}.status"] ?: null
+	status = project.properties["${project.name}.status"] ?: 'dev'
 	
 	version = Reckoner.reckon(
-			new GitInventorySupplier(repo, {java.util.Optional.ofNullable(it.replaceAll("^${project.name}-", ''))}),
-			new ScopeNormalStrategy({java.util.Optional.ofNullable(project.properties["${project.name}.scope"])}),
-			new StagePreReleaseStrategy(stages, {java.util.Optional.ofNullable(project.status)})
+			new GitInventorySupplier(repo, {Optional.ofNullable(it.replaceAll("^${project.name}-", ''))}),
+			new ScopeNormalStrategy({Optional.ofNullable(project.properties["${project.name}.scope"])}),
+			new StagePreReleaseStrategy(stages, {project.status=='dev' ? Optional.empty() : Optional.of(project.status)})
 	)
 	
 	apply plugin: 'org.uulib.gittag'

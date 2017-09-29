@@ -1,6 +1,8 @@
 allprojects {
 	pluginManager.withPlugin('java') {
 		build.dependsOn.remove('check')
+		build.dependsOn.remove('assemble')
+		build.dependsOn 'jar'
 	}
 }
 

@@ -15,9 +15,7 @@ class GitTagPlugin : Plugin<Project> {
 		val gitEx = (gradletag as ExtensionAware).extensions
 				.create(GitExtension.EXTENSION_NAME, GitExtension::class.java, project)
 		
-		if(project.equals(project.rootProject)) {
-			gradletag.vcs = gitEx.repositoryFromProjectDir()
-		}
+		gradletag.vcs = gitEx.repositoryFromRootDir()
 	}
 	
 }

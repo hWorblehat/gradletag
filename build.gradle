@@ -1,34 +1,50 @@
+plugins {
+	id 'org.ajoberstar.grgit' version '2.0.1'
+	id 'org.ajoberstar.reckon' version '0.2.1' apply false
+}
+
+import org.ajoberstar.reckon.core.Reckoner
+import org.ajoberstar.reckon.core.git.GitInventorySupplier
+import org.ajoberstar.reckon.core.strategy.*
+import org.eclipse.jgit.lib.Repository
+
 group 'org.uulib.gradletag'
 
 wrapper {
 	gradleVersion = '4.2'
 }
 
+File subprojectsGradle = file('gradle/subprojects.gradle')
+Repository repo = grgit.repository.jgit.repository
+Set<String> stages = ['alpha', 'beta', 'final']
+
 subprojects {
-	group 'org.uulib.gradletag'
+	apply from: subprojectsGradle
 	
-	repositories {
-		jcenter()
-	}
+	status = project.properties["${project.name}.status"] ?: 'alpha'
 	
-	apply plugin: 'eclipse'
+	version = Reckoner.reckon(
+			new GitInventorySupplier(repo, {java.util.Optional.ofNullable(it.replaceAll("^${project.name}-", ''))}),
+			new ScopeNormalStrategy({java.util.Optional.ofNullable(project.properties["${project.name}.scope"])}),
+			new StagePreReleaseStrategy(stages, {java.util.Optional.of(project.status)})
+	)
 	
-	pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
-
-		eclipse {
-			project {
-				natures 'org.jetbrains.kotlin.core.kotlinNature'
-				buildCommand 'org.jetbrains.kotlin.ui.kotlinBuilder'
-			}
-
-			classpath {
-				containers 'org.jetbrains.kotlin.core.KOTLIN_CONTAINER'
+	apply plugin: 'org.uulib.gittag'
+	
+	gradletag {
+		tags {
+			versionTag {
+				tag = "${project.name}-${project.version}"
 			}
 		}
 	}
 	
-	tasks.withType(Test) {
-		systemProperty('org.uulib.gradletag.compatibleGradleVersions', '4.0,4.1,4.2')
+	pluginManager.withPlugin('com.gradle.plugin-publish') {
+		pluginBundle {
+			website = 'https://github.com/hWorblehat/gradletag'
+			vcsUrl = 'https://github.com/hWorblehat/gradletag'
+		}
+		
+		publishPlugins.finalizedBy gradletag.tags.versionTag.tagTaskName
 	}
-	
 }

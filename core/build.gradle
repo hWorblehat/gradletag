@@ -4,6 +4,7 @@ plugins {
 	id 'org.jetbrains.kotlin.jvm' version '1.1.50'
 	id 'java-library'
 	id 'groovy'
+	id 'com.gradle.plugin-publish' version '0.9.8'
 }
 
 apply from: 'dependencies.gradle'
@@ -18,5 +19,21 @@ gradlePlugin {
 			id = "org.uulib.gradletag"
 			implementationClass = 'org.uulib.gradletag.core.GradleTagPlugin'
 		}
+	}
+}
+
+pluginBundle {
+	description = "Plugin to define tags on a project's version control system."
+	tags = ['tag', 'label', 'version', 'vcs', 'scm'] 
+	
+	plugins {
+		gradletagCore {
+			id = gradlePlugin.plugins.gradletagCore.id
+			displayName = "Gradletag core plugin"
+		}
+	}
+	
+	mavenCoordinates {
+		artifactId = 'gradletag-core'
 	}
 }

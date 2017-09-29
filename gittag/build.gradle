@@ -4,6 +4,7 @@ plugins {
 	id 'org.jetbrains.kotlin.jvm' version '1.1.50'
 	id 'java-library'
 	id 'groovy'
+	id 'com.gradle.plugin-publish' version '0.9.8'
 }
 
 apply from: 'dependencies.gradle'
@@ -13,6 +14,18 @@ gradlePlugin {
 		gittag {
 			id = "org.uulib.gittag"
 			implementationClass = 'org.uulib.gittag.GitTagPlugin'
+		}
+	}
+}
+
+pluginBundle {
+	description = "Plugin to tag a project's git repository using the org.uulib.gradletag plugin."
+	tags = ['tag', 'label', 'version', 'vcs', 'scm', 'git']
+	
+	plugins {
+		gittag {
+			id = gradlePlugin.plugins.gradletagCore.id
+			displayName = "Gradletag git plugin"
 		}
 	}
 }

@@ -4,4 +4,12 @@ allprojects {
 	}
 }
 
-apply from: '../build.gradle'
+File subprojectsGradle = file('../gradle/subprojects.gradle')
+
+allprojects {
+	apply from: subprojectsGradle
+}
+
+dependencies {
+	runtime project(':gittag')
+}

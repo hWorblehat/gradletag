@@ -28,4 +28,8 @@ allprojects {
 		}
 	}
 	
+	tasks.withType(Test) {
+		systemProperty('org.uulib.gradletag.compatibleGradleVersions', '4.0,4.1,4.2')
+	}
+	
 }

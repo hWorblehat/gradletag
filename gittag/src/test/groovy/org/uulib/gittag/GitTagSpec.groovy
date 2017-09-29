@@ -51,7 +51,9 @@ gradletag {
 		new File(projectDir.root, ".git").directory
 	}
 	
-	def "Applying the gittag plugin and running a tag task creates a tag on the repository"() {
+	@Unroll
+	def "Applying the gittag plugin and running a tag task creates a tag on the repository in Gradle #gradleVersion"(
+			String gradleVersion) {
 		setup:
 		RevWalk walk = new RevWalk(git.repository)
 
@@ -59,6 +61,7 @@ gradletag {
 		def result = GradleRunner.create()
 				.withPluginClasspath()
 				.withProjectDir(projectDir.root)
+				.withGradleVersion(gradleVersion)
 				.withArguments('tagVcsWithTestTag', '--stacktrace')
 				.build()
 				
@@ -68,6 +71,9 @@ gradletag {
 			RevTag tag = walk.parseTag(ref.objectId)
 			return tag.tagName == 'xxTAGxx' && tag.shortMessage == 'A dummy tag'
 		}
+		
+		where:
+		gradleVersion << System.getProperty('org.uulib.gradletag.compatibleGradleVersions').split(',')
 	}
 	
 }

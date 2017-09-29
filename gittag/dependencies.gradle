@@ -1,10 +1,13 @@
 
 dependencies {
 	
+	api (
+		gradleApi(),
+		project(':core')
+	)
+	
 	implementation(
 		"org.jetbrains.kotlin:kotlin-stdlib-jre8:1.1.+",
-		gradleApi(),
-		project(':core'),
 		'org.eclipse.jgit:org.eclipse.jgit:4.8.0.201706111038-r'
 	)
 	

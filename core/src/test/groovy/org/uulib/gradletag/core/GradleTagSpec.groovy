@@ -3,6 +3,7 @@ package org.uulib.gradletag.core
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
+import org.uulib.gradletag.testutil.CompatibleGradleVersions
 
 import spock.lang.*
 

@@ -1,4 +1,4 @@
-package org.uulib.gradletag.core;
+package org.uulib.gradletag.testutil;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -1,3 +1,21 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+	
+	dependencies {
+		classpath 'org.ajoberstar.reckon:reckon-core:0.2.1'
+	}
+}
+
+import com.github.zafarkhaja.semver.Version
+import org.ajoberstar.reckon.core.Reckoner
+import org.ajoberstar.reckon.core.git.GitInventorySupplier
+import org.ajoberstar.reckon.core.strategy.*
+import org.eclipse.jgit.lib.Repository
+import org.eclipse.jgit.lib.RepositoryBuilder
+import java.util.Optional
+
 group 'org.uulib.gradletag'
 
 repositories {
@@ -5,6 +23,22 @@ repositories {
 }
 
 apply plugin: 'eclipse'
+
+status = project.properties["${project.name}.status"] ?: 'dev'
+
+Repository repo = new RepositoryBuilder().setWorkTree(buildscript.sourceFile.parentFile.parentFile).build()
+Set<String> stages = ['alpha', 'beta', 'final']
+
+version = Reckoner.reckon(
+		new GitInventorySupplier(repo, {Optional.ofNullable(it.replaceAll("^${project.name}-", ''))}),
+		new ScopeNormalStrategy({Optional.ofNullable(project.properties["${project.name}.scope"])}),
+		new StagePreReleaseStrategy(stages, {project.status=='dev' ? Optional.empty() : Optional.of(project.status)})
+)
+
+def parseAPIVersion(String version) {
+	Version v = Version.valueOf(version)
+	return "${v.majorVersion}.${v.minorVersion}"
+}
 
 pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
 
@@ -20,6 +54,28 @@ pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
 	}
 }
 
-tasks.withType(Test) {
-	systemProperty('org.uulib.gradletag.compatibleGradleVersions', '4.0,4.1,4.2')
+pluginManager.withPlugin('java') {
+	
+	tasks.withType(Test) {
+		systemProperty('org.uulib.gradletag.compatibleGradleVersions', '4.0,4.1,4.2')
+	}
+	
+	jar {
+		manifest.attributes (
+			'Created-By':             'uulib',
+			'Specification-Version':  parseAPIVersion(project.version),
+			'Specification-Vendor':   'uulib',
+			'Implementation-Version': project.version,
+			'Implementation-Vendor':  'uulib'
+		)
+		
+		doFirst {
+			manifest.attributes (
+				'Name':                 project.basePackage.replace('.', '/'),
+				'Specification-Title':  project.description,
+				'Implementation-Title': project.basePackage
+			)
+		}
+	}
+
 }

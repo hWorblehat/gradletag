@@ -7,6 +7,9 @@ plugins {
 	id 'com.gradle.plugin-publish' version '0.9.8'
 }
 
+description = 'Uulib Gradletag Plugin'
+ext.basePackage = 'org.uulib.gradletag'
+
 apply from: 'dependencies.gradle'
 
 jar {

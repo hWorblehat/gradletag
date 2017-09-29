@@ -6,6 +6,9 @@ allprojects {
 	}
 }
 
+description = 'buildSrc project for dependencies only'
+ext.basePackage = 'org.uulib.gradletag.buildSrc'
+
 File subprojectsGradle = file('../gradle/subprojects.gradle')
 
 allprojects {

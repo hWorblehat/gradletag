@@ -7,6 +7,9 @@ plugins {
 	id 'com.gradle.plugin-publish' version '0.9.8'
 }
 
+description = 'Uulib Gittag Plugin'
+ext.basePackage = 'org.uulib.gittag'
+
 apply from: 'dependencies.gradle'
 
 gradlePlugin {

@@ -30,7 +30,7 @@ Repository repo = new RepositoryBuilder().setWorkTree(buildscript.sourceFile.par
 Set<String> stages = ['alpha', 'beta', 'final']
 
 version = Reckoner.reckon(
-		new GitInventorySupplier(repo, {Optional.ofNullable(it.replaceAll("^${project.name}-", ''))}),
+		new GitInventorySupplier(repo, {Optional.of(it.replaceAll("^${project.name}-", ''))}),
 		new ScopeNormalStrategy({Optional.ofNullable(project.properties["${project.name}.scope"])}),
 		new StagePreReleaseStrategy(stages, {project.status=='dev' ? Optional.empty() : Optional.of(project.status)})
 )

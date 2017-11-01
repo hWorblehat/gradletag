@@ -1,7 +1,7 @@
 group 'org.uulib.gradletag'
 
 wrapper {
-	gradleVersion = '4.2'
+	gradleVersion = '4.3'
 }
 
 File subprojectsGradle = file('gradle/subprojects.gradle')

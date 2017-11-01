@@ -1,4 +1,8 @@
 
+configurations.all {
+	exclude module: 'groovy-all'
+}
+
 dependencies {
 	
 	api (
@@ -11,8 +15,8 @@ dependencies {
 		"org.jetbrains.kotlin:kotlin-stdlib-jre8:1.1.50"
 	)
 	
-	testImplementation('org.spockframework:spock-core:1.1-+') {
-		exclude module: 'groovy-all'
-	}
+	testImplementation(
+		'org.spockframework:spock-core:1.1-+'
+	)
 	
 }

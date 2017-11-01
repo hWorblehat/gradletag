@@ -1,9 +1,9 @@
-package org.uulib.gittag
+package org.uulib.gradletag.git
 
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
-import org.uulib.gradletag.core.VcsTagException
-import org.uulib.gradletag.core.VcsTagger
+import org.uulib.gradletag.VcsTagException
+import org.uulib.gradletag.VcsTagger
 
 /**
  * A {@link VcsTagger} that tags a Git repository.

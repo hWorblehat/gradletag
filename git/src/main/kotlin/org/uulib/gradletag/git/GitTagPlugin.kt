@@ -1,4 +1,4 @@
-package org.uulib.gittag
+package org.uulib.gradletag.git
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

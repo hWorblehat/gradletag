@@ -1,4 +1,4 @@
-package org.uulib.gradletag.core
+package org.uulib.gradletag
 
 /**
  * Provides the means to tag a particular version control system.

@@ -7,6 +7,7 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.uulib.gradle.PropertyStateDelegate
 import javax.inject.Inject
+import org.uulib.gradletag.VcsTagException
 
 open class TagVcs @Inject constructor(objects : ObjectFactory) : DefaultTask(), TagSpec by TagSpecImpl(objects) {
 	

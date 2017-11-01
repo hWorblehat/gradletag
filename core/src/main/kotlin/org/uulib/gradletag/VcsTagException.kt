@@ -1,4 +1,4 @@
-package org.uulib.gradletag.core
+package org.uulib.gradletag
 
 /**
  * Indicates a problem when trying to add a tag to a VCS repository.

@@ -25,7 +25,7 @@ plugins {
 	id 'org.uulib.gradletag'
 }
 
-import org.uulib.gradletag.core.VcsTagger
+import org.uulib.gradletag.VcsTagger
 
 class DummyTagger implements VcsTagger {
 

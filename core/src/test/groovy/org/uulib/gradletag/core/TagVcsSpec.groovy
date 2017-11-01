@@ -2,6 +2,7 @@ package org.uulib.gradletag.core
 
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
+import org.uulib.gradletag.VcsTagger
 
 import spock.lang.Specification
 
@@ -15,7 +16,7 @@ class TagVcsSpec extends Specification {
 		
 		TagVcs task = project.tasks.create('dummyTag', TagVcs) {
 			tag = 'Boo'
-			tagger = taggerMock
+			vcs = taggerMock
 		}
 		
 		when: "the TagVcs task is invoked"

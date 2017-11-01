@@ -16,9 +16,12 @@ class GradleTagPlugin : Plugin<Project> {
 			project.tasks.create(tag.tagTaskName, TagVcs::class.java) { tagTask ->
 				tagTask.setTag(tag.tagProperty)
 				tagTask.setComment(tag.commentProperty)
-				tagTask.setTagger(ex.vcsProperty)
 				tagTask.description = "Tags the version control repository with the '${tag.name}' tag."
 			}
+		}
+		
+		project.tasks.withType(TagVcs::class.java) { tagTask ->
+			tagTask.vcs.setProvider(ex.vcs)
 		}
 	}
 	

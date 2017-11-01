@@ -20,8 +20,4 @@ internal class TagSpecImpl @Inject constructor(objectFactory: ObjectFactory) : T
 	override var comment : Any? by OptionalPropertyStateDelegate(commentProperty)
 	override fun setComment(commentProvider : Provider<Any>) = commentProperty.setProvider(commentProvider)
 	
-	private fun <T> Property<T>.setProvider(provider: Provider<out T>) {
-		set(provider)
-	}
-	
 }

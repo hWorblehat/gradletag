@@ -8,7 +8,7 @@ dependencies {
 	api (
 		gradleApi(),
 		project(':core'),
-		'org.eclipse.jgit:org.eclipse.jgit:4.8.0.201706111038-r'
+		'org.ajoberstar:grgit:2.1.0'
 	)
 	
 	implementation(

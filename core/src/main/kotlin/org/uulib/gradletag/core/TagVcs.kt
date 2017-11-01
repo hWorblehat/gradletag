@@ -11,11 +11,8 @@ import org.uulib.gradletag.VcsTagException
 
 open class TagVcs @Inject constructor(objects : ObjectFactory) : DefaultTask(), TagSpec by TagSpecImpl(objects) {
 	
-	private val taggerState = objects.property(VcsTagger::class.java)
-	
 	@get:Internal
-	var tagger : VcsTagger by PropertyStateDelegate(taggerState)
-	fun setTagger(tagger: Provider<VcsTagger>) = taggerState.set(tagger)
+	val vcs = objects.property(Any::class.java)
 	
 	init {
 		group = "Publishing"
@@ -24,7 +21,7 @@ open class TagVcs @Inject constructor(objects : ObjectFactory) : DefaultTask(), 
 	@TaskAction
 	@Throws(VcsTagException::class)
 	fun tag() {
-		tagger.tag(tag.toString(), comment?.toString())
+		TaggerResolver.resolveTagger(vcs.get()).tag(tag.toString(), comment?.toString())
 	}
 	
 }

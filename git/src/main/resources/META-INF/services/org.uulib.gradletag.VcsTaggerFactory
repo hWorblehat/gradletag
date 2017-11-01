@@ -1,0 +1,3 @@
+org.uulib.gradletag.git.JGitTaggerFactory
+org.uulib.gradletag.git.JGitRepoTaggerFactory
+org.uulib.gradletag.git.GrgitTaggerFactory

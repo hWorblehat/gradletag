@@ -29,9 +29,11 @@ class GitTagSpec extends Specification {
 """
 plugins {
 	id 'org.uulib.gittag'
+	id 'org.ajoberstar.grgit'
 }
 
 gradletag {
+	vcs = grgit
 	tags {
 		testTag {
 			tag = 'xxTAGxx'
@@ -65,7 +67,7 @@ gradletag {
 				.withPluginClasspath()
 				.withProjectDir(projectDir.root)
 				.withGradleVersion(gradleVersion)
-				.withArguments('tagVcsWithTestTag', '--stacktrace')
+				.withArguments('tagVcsWithTestTag', '--stacktrace', '--debug')
 				.build()
 				
 		then:

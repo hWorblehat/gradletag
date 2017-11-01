@@ -16,5 +16,5 @@ allprojects {
 }
 
 dependencies {
-	runtime project(':gittag')
+	runtime project(':git')
 }

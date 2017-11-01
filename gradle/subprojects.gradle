@@ -40,6 +40,8 @@ def parseAPIVersion(String version) {
 	return "${v.majorVersion}.${v.minorVersion}"
 }
 
+ext.moduleName = "${rootProject.name}-${projectDir.name}"
+
 pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
 
 	eclipse {
@@ -61,6 +63,7 @@ pluginManager.withPlugin('java') {
 	}
 	
 	jar {
+		archiveName = "${project.moduleName}.jar"
 		manifest.attributes (
 			'Created-By':             'uulib',
 			'Specification-Version':  parseAPIVersion(project.version),

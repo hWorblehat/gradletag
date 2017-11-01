@@ -1,1 +1,1 @@
-includeFlat 'core', 'gittag'
+apply from: '../gradle/findSubprojects.gradle'

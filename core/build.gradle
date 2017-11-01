@@ -12,10 +12,6 @@ ext.basePackage = 'org.uulib.gradletag'
 
 apply from: 'dependencies.gradle'
 
-jar {
-	archiveName = 'gradletag-core.jar'
-}
-
 gradlePlugin {
 	plugins {
 		gradletagCore {
@@ -36,7 +32,4 @@ pluginBundle {
 		}
 	}
 	
-	mavenCoordinates {
-		artifactId = 'gradletag-core'
-	}
 }

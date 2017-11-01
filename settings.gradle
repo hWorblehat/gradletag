@@ -1,3 +1,3 @@
 rootProject.name = 'gradletag'
 
-include 'core', 'gittag'
+apply from: 'gradle/findSubprojects.gradle'

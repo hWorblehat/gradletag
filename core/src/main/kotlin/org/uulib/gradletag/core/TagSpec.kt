@@ -7,17 +7,17 @@ import org.gradle.api.tasks.Input
 interface TagSpec {
 	
 	@get:Input
-	val tagProperty : Provider<String>
+	val tagProperty : Provider<Any>
 	
 	@get:Internal
-	var tag : String
-	fun setTag(tagProvider : Provider<String>)
+	var tag : Any
+	fun setTag(tagProvider : Provider<Any>)
 	
 	@get:Internal
-	val commentProperty : Provider<String>
+	val commentProperty : Provider<Any>
 	
 	@get:Internal
-	var comment : String?
-	fun setComment(commentProvider : Provider<String>)
+	var comment : Any?
+	fun setComment(commentProvider : Provider<Any>)
 	
 }

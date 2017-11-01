@@ -1,16 +1,16 @@
 package org.uulib.gradletag.core
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Provider
-import org.gradle.api.provider.ProviderFactory
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.uulib.gradle.PropertyStateDelegate
 import javax.inject.Inject
 
-open class TagVcs @Inject constructor(providers : ProviderFactory) : DefaultTask(), TagSpec by TagSpecImpl(providers) {
+open class TagVcs @Inject constructor(objects : ObjectFactory) : DefaultTask(), TagSpec by TagSpecImpl(objects) {
 	
-	private val taggerState = project.property(VcsTagger::class.java)
+	private val taggerState = objects.property(VcsTagger::class.java)
 	
 	@get:Internal
 	var tagger : VcsTagger by PropertyStateDelegate(taggerState)
@@ -23,7 +23,7 @@ open class TagVcs @Inject constructor(providers : ProviderFactory) : DefaultTask
 	@TaskAction
 	@Throws(VcsTagException::class)
 	fun tag() {
-		tagger.tag(tag, comment)
+		tagger.tag(tag.toString(), comment?.toString())
 	}
 	
 }

@@ -57,7 +57,7 @@ pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
 pluginManager.withPlugin('java') {
 	
 	tasks.withType(Test) {
-		systemProperty('org.uulib.gradletag.compatibleGradleVersions', '4.0,4.1,4.2')
+		systemProperty('org.uulib.gradletag.compatibleGradleVersions', '4.3')
 	}
 	
 	jar {

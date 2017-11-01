@@ -1,11 +1,10 @@
 package org.uulib.gradletag.core
 
 import org.gradle.api.Named
-import org.gradle.api.provider.ProviderFactory
-import org.gradle.api.NamedDomainObjectFactory
+import org.gradle.api.model.ObjectFactory
 
-class NamedTagSpec(private val name: String, providerFactory: ProviderFactory)
-		: TagSpec by TagSpecImpl(providerFactory), Named {
+class NamedTagSpec(private val name: String, objectFactory: ObjectFactory)
+		: TagSpec by TagSpecImpl(objectFactory), Named {
 	
 	val tagTaskName = "tagVcsWith${name.capitalize()}"
 	

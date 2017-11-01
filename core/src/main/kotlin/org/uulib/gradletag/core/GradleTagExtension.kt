@@ -14,12 +14,12 @@ open class GradleTagExtension @Inject constructor(project : Project) {
 		val EXTENSION_NAME = "gradletag"
 	}
 	
-	val vcsProperty = project.property(VcsTagger::class.java)
+	val vcsProperty = project.objects.property(VcsTagger::class.java)
 	var vcs : VcsTagger by PropertyStateDelegate(vcsProperty)
 	
-	val tags = project.container(NamedTagSpec::class.java, {name -> NamedTagSpec(name, project.providers)})
+	val tags = project.container(NamedTagSpec::class.java, {name -> NamedTagSpec(name, project.objects)})
 	
-	private val rootProjectVcsProperty = project.property(VcsTagger::class.java)
+	private val rootProjectVcsProperty = project.objects.property(VcsTagger::class.java)
 	
 	init {
 		val root = project.rootProject

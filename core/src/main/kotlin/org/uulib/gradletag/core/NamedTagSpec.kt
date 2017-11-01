@@ -2,8 +2,9 @@ package org.uulib.gradletag.core
 
 import org.gradle.api.Named
 import org.gradle.api.model.ObjectFactory
+import javax.inject.Inject
 
-class NamedTagSpec(private val name: String, objectFactory: ObjectFactory)
+open class NamedTagSpec @Inject constructor(private val name: String, objectFactory: ObjectFactory)
 		: TagSpec by TagSpecImpl(objectFactory), Named {
 	
 	val tagTaskName = "tagVcsWith${name.capitalize()}"

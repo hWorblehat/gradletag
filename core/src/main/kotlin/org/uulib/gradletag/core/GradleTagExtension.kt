@@ -1,12 +1,9 @@
 package org.uulib.gradletag.core
 
-import org.gradle.api.provider.Provider
-import org.gradle.api.provider.ProviderFactory
-import org.uulib.gradle.PropertyStateDelegate
-import javax.inject.Inject
-import org.gradle.api.Project
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.Project
+import javax.inject.Inject
 
 open class GradleTagExtension @Inject constructor(project : Project) {
 	
@@ -15,7 +12,9 @@ open class GradleTagExtension @Inject constructor(project : Project) {
 	}
 	
 	val vcs = project.objects.property(Any::class.java)
-	val tags = project.container(NamedTagSpec::class.java, {name -> NamedTagSpec(name, project.objects)})
+	val tags = project.container(NamedTagSpec::class.java) {name ->
+		project.objects.newInstance(NamedTagSpec::class.java, name, project.objects)
+	}
 	
 	private val rootProjectVcsProperty = project.objects.property(Any::class.java)
 	

@@ -15,7 +15,6 @@ open class GradleTagExtension @Inject constructor(project : Project) {
 	}
 	
 	val vcs = project.objects.property(Any::class.java)
-	
 	val tags = project.container(NamedTagSpec::class.java, {name -> NamedTagSpec(name, project.objects)})
 	
 	private val rootProjectVcsProperty = project.objects.property(Any::class.java)

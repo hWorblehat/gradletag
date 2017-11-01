@@ -33,7 +33,6 @@ plugins {
 }
 
 gradletag {
-	vcs = grgit
 	tags {
 		testTag {
 			tag = 'xxTAGxx'

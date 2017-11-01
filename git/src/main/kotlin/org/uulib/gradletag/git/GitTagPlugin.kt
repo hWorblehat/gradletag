@@ -12,6 +12,10 @@ class GitTagPlugin : Plugin<Project> {
 		project.pluginManager.apply(GradleTagPlugin::class.java)
 		
 		val gradletag = project.extensions.getByType(GradleTagExtension::class.java)
+		
+		project.pluginManager.withPlugin("org.ajoberstar.grgit", { _ ->
+			gradletag.vcs.set(project.property("grgit"))
+		})
 	}
 	
 }

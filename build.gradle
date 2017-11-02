@@ -9,9 +9,11 @@ wrapper {
 }
 
 File subprojectsGradle = file('gradle/subprojects.gradle')
+File documentationGradle = file('gradle/documentation.gradle')
 
 subprojects {
 	apply from: subprojectsGradle
+	apply from: documentationGradle
 	
 	apply plugin: 'org.uulib.gittag'
 	

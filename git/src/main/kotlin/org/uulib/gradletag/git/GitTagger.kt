@@ -6,8 +6,8 @@ import org.uulib.gradletag.VcsTagException
 import org.uulib.gradletag.VcsTagger
 
 /**
- * A {@link VcsTagger} that tags a Git repository.
- * @property git A {@link Git} object pointing to the repository to tag.
+ * A [VcsTagger] that tags a Git repository.
+ * @property git A [Git] object pointing to the repository to tag.
  */
 class GitTagger(private val git: Git) : VcsTagger {
 	

@@ -1,0 +1,25 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+	
+	dependencies {
+		classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.9.+'
+	}
+}
+
+pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
+
+	apply plugin: org.jetbrains.dokka.gradle.DokkaPlugin
+
+	task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+		group = 'Documentation'
+		description 'Generates Kotlin API documentation for the main source code'
+		outputFormat = 'javadoc'
+	}
+
+	tasks.withType(Javadoc).matching({it.name=='javadoc'}).all {
+		dependsOn dokkaJavadoc
+		dokkaJavadoc.outputDirectory = destinationDir
+	}
+}

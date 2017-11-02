@@ -29,6 +29,7 @@ subprojects {
 			vcsUrl = 'https://github.com/hWorblehat/gradletag'
 			
 			mavenCoordinates {
+				group = project.group
 				artifactId = project.moduleName
 			}
 		}

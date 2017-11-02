@@ -24,7 +24,9 @@ repositories {
 
 apply plugin: 'eclipse'
 
-status = project.properties["${project.name}.status"] ?: 'dev'
+if(project.status=='release' || project.status=='integration') {
+	project.status = 'dev'
+}
 
 Repository repo = new RepositoryBuilder().setWorkTree(buildscript.sourceFile.parentFile.parentFile).build()
 Set<String> stages = ['alpha', 'beta', 'final']

@@ -1,0 +1,59 @@
+== Applying The Plugin
+
+This plugin **requires Gradle 4.3** or later.
+
+If you're using Git as your version control system, you probably don't want to apply this plugin directly.
+Apply the link:../git[gittag] plugin instead.
+
+=== In project build scripts
+
+----
+plugins {
+	id 'org.uulib.gradletag'
+}
+----
+
+=== In applied script plugins
+
+----
+buildscript {
+	repositories {
+		maven {
+			url 'https://plugins.gradle.org/m2/'
+		}
+	}
+	
+	dependencies {
+		classpath 'org.uulib.gradletag:gradletag-core:<version>'
+	}
+}
+
+apply plugin: org.uulib.gradletag.core.GradleTagPlugin
+----
+
+== Usage
+
+The plugin adds a `gradletag` extension to the project. Use this to...
+
+1. Set the `vcs` property to a supported version control system object. Currently, only link:../git[jgit or grgit]
+   are supported.
+   
+2. Define tags.
+
+For each tag defined, a `tagVcsWith<tagname>Tag` task is created, which will add a tag to the current head of the
+configured vcs.
+
+----
+
+gradletag {
+	vcs = <version_control_system>
+	
+	tags {
+		myTag {
+			tag = 'myTag'
+			comment = 'This is my tag' //optional
+		}
+	}
+}
+
+----

@@ -1,0 +1,62 @@
+== Applying The Plugin
+
+This plugin **requires Gradle 4.3** or later. Applying this plugin automatically applies the link:../core[core plugin].
+
+=== In project build scripts
+
+----
+plugins {
+	id 'org.uulib.gittag'
+}
+----
+
+=== In applied script plugins
+
+----
+buildscript {
+	repositories {
+		maven {
+			url 'https://plugins.gradle.org/m2/'
+		}
+	}
+	
+	dependencies {
+		classpath 'org.uulib.gradletag:gradletag-git:<version>'
+	}
+}
+
+apply plugin: org.uulib.gradletag.git.GitTagPlugin
+----
+
+== Usage
+
+The plugin automatically applies the link:../core[core] plugin to the project, so that can be used to define tags.
+In addition, this plugin add support for setting the `vcs` property to any of the following types:
+
+* A https://eclipse.org/jgit/[JGit] `Git` instance
+* A https://eclipse.org/jgit/[JGit] `Repository` instance
+* A http://ajoberstar.org/grgit/index.html[grgit] instance
+
+If the http://ajoberstar.org/grgit/grgit-gradle.html[grgit Gradle plugin] is applied to either the project or the
+root project of the Gradle build, then the `grgit` instance that that plugin creates will automatically be used for
+gradletag's `vcs` property.
+
+----
+
+plugins {
+	id 'org.uulib.gittag'
+	id 'org'ajoberstar.grgit'
+}
+
+gradletag {
+	// No configuration of 'vcs' necessary
+	
+	tags {
+		myTag {
+			tag = 'myTag'
+			comment = 'This is my tag' //optional
+		}
+	}
+}
+
+----

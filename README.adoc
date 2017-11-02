@@ -1,0 +1,8 @@
+= Gradletag
+
+This project contains a set of Gradle plugins that allow you to define VCS tags/labels in your Gradle build.
+
+It currently consists of 2 plugins:
+
+* link:git[`org.uulib.gittag`] - for defining tags in Git repositories
+* link:core[`org.uulib.gradletag`] - core functionality that can be used with other version control systems.

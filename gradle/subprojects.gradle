@@ -60,6 +60,9 @@ pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
 
 pluginManager.withPlugin('java') {
 	
+	sourceCompatibility = '1.7'
+	targetCompatibility = '1.7'
+	
 	tasks.withType(Test) {
 		systemProperty('org.uulib.gradletag.compatibleGradleVersions', '4.3')
 	}

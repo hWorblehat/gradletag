@@ -22,4 +22,24 @@ pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
 		dependsOn dokkaJavadoc
 		dokkaJavadoc.outputDirectory = destinationDir
 	}
+	
+
+}
+
+pluginManager.withPlugin('java') {
+	
+	task javadocJar(type: Jar) {
+		baseName = project.moduleName
+		classifier = 'javadoc'
+		
+		from(javadoc)
+	}
+	
+	task sourcesJar(type: Jar) {
+		baseName = project.moduleName
+		classifier = 'sources'
+		
+		from(project.sourceSets.main.allSource)
+	}
+	
 }

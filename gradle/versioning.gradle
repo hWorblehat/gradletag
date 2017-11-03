@@ -1,0 +1,48 @@
+buildscript {
+	repositories {
+		jcenter()
+		maven {
+			url  "https://dl.bintray.com/uulib/uulib"
+		}
+	}
+	dependencies {
+		classpath 'org.uulib.reckon:reckon-gradle-plugin:0.1.0-alpha.1'
+	}
+}
+
+apply plugin: org.uulib.reckon.gradle.ReckonGradlePlugin
+
+if(project.status=='release' || project.status=='integration') {
+	project.status = 'development'
+}
+
+reckon {
+	vcs = git(rootProject.grgit).withTagsMatching ~/${project.name}-(.+)/
+
+	def stage = projectProperty 'status'
+	def scope = projectProperty "${project.name}.scope" or 'scope' orElse 'patch'
+
+	normalVersion = basedOn(stage) {
+		normally scopedUsing(scope)
+		when 'development' then '0.0.0'
+	}
+
+	preReleaseVersion = basedOn(stage) {
+		normally stageUsing(stage)
+		when 'final' then none
+		when 'development' then compound {
+			preRelease = timestamp(rootProject.buildTime)
+			buildMetadata = commitId
+		}
+	}
+}
+
+apply plugin: 'org.uulib.gittag'
+
+gradletag {
+	tags {
+		versionTag {
+			tag = "${project.name}-${project.version}"
+		}
+	}
+}

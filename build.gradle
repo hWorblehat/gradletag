@@ -2,46 +2,24 @@ plugins {
 	id 'org.ajoberstar.grgit'
 }
 
-group 'org.uulib.gradletag'
+allprojects {
+	group 'org.uulib.gradletag'
+}
 
 wrapper {
 	gradleVersion = '4.3'
 }
 
-File subprojectsGradle = file('gradle/subprojects.gradle')
-File documentationGradle = file('gradle/documentation.gradle')
+import java.time.Instant
+
+ext.buildTime = Instant.now()
+
+def gradleScripts = ['subprojects', 'ide', 'versioning', 'documentation', 'publish'].collect {
+	file("gradle/${it}.gradle")
+}
 
 subprojects {
-	apply from: subprojectsGradle
-	apply from: documentationGradle
-	
-	apply plugin: 'org.uulib.gittag'
-	
-	gradletag {
-		tags {
-			versionTag {
-				tag = "${project.name}-${project.version}"
-			}
-		}
-	}
-	
-	pluginManager.withPlugin('com.gradle.plugin-publish') {
-		pluginBundle {
-			website = 'https://github.com/hWorblehat/gradletag'
-			vcsUrl = 'https://github.com/hWorblehat/gradletag'
-			
-			mavenCoordinates {
-				group = project.group
-				artifactId = project.moduleName
-			}
-		}
-		
-		tagVcsWithVersionTag.mustRunAfter publishPlugins
-		
-		task('releasePlugins') {
-			group = "Publishing"
-			description = "Publishes Gradle plugins to the plugin portal, and tags git with the version number"
-			dependsOn 'publishPlugins', 'tagVcsWithVersionTag'
-		}
+	for(f in gradleScripts) {
+		apply from: f
 	}
 }

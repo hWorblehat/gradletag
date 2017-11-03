@@ -1,62 +1,9 @@
-buildscript {
-	repositories {
-		jcenter()
-	}
-	
-	dependencies {
-		classpath 'org.ajoberstar.reckon:reckon-core:0.2.1'
-	}
-}
 
-import com.github.zafarkhaja.semver.Version
-import org.ajoberstar.reckon.core.Reckoner
-import org.ajoberstar.reckon.core.git.GitInventorySupplier
-import org.ajoberstar.reckon.core.strategy.*
-import org.eclipse.jgit.lib.Repository
-import org.eclipse.jgit.lib.RepositoryBuilder
-import java.util.Optional
-
-group 'org.uulib.gradletag'
-
-repositories {
+project.repositories {
 	jcenter()
 }
 
-apply plugin: 'eclipse'
-
-if(project.status=='release' || project.status=='integration') {
-	project.status = 'dev'
-}
-
-Repository repo = new RepositoryBuilder().setWorkTree(buildscript.sourceFile.parentFile.parentFile).build()
-Set<String> stages = ['alpha', 'beta', 'final']
-
-version = Reckoner.reckon(
-		new GitInventorySupplier(repo, {Optional.of(it.replaceAll("^${project.name}-", ''))}),
-		new ScopeNormalStrategy({Optional.ofNullable(project.properties["${project.name}.scope"])}),
-		new StagePreReleaseStrategy(stages, {project.status=='dev' ? Optional.empty() : Optional.of(project.status)})
-)
-
-def parseAPIVersion(String version) {
-	Version v = Version.valueOf(version)
-	return "${v.majorVersion}.${v.minorVersion}"
-}
-
 ext.moduleName = "${rootProject.name}-${projectDir.name}"
-
-pluginManager.withPlugin('org.jetbrains.kotlin.jvm') {
-
-	eclipse {
-		project {
-			natures 'org.jetbrains.kotlin.core.kotlinNature'
-			buildCommand 'org.jetbrains.kotlin.ui.kotlinBuilder'
-		}
-
-		classpath {
-			containers 'org.jetbrains.kotlin.core.KOTLIN_CONTAINER'
-		}
-	}
-}
 
 pluginManager.withPlugin('java') {
 	
@@ -68,20 +15,18 @@ pluginManager.withPlugin('java') {
 	}
 	
 	jar {
-		archiveName = "${project.moduleName}.jar"
-		manifest.attributes (
-			'Created-By':             'uulib',
-			'Specification-Version':  parseAPIVersion(project.version),
-			'Specification-Vendor':   'uulib',
-			'Implementation-Version': project.version,
-			'Implementation-Vendor':  'uulib'
-		)
+		baseName = project.moduleName
 		
 		doFirst {
 			manifest.attributes (
-				'Name':                 project.basePackage.replace('.', '/'),
-				'Specification-Title':  project.description,
-				'Implementation-Title': project.basePackage
+				'Name':                   project.basePackage.replace('.', '/'),
+				'Created-By':             'uulib',
+				'Specification-Title':    project.description,
+				'Specification-Version':  project.version,
+				'Specification-Vendor':   'uulib',
+				'Implementation-Title':   project.basePackage,
+				'Implementation-Version': project.version,
+				'Implementation-Vendor':  'uulib'
 			)
 		}
 	}
